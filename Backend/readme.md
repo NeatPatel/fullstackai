@@ -1,3 +1,5 @@
+Python Version: 3.11.5
+
 First cd into this directory!
 
 Create your virtual environment, preferably named venv:
