@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 # Device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -73,5 +73,6 @@ for epoch in range(num_epochs):
         if (i + 1) % 100 == 0:
             print(f'Epoch [{epoch+1}/{num_epochs}], Step [{i+1}/{n_total_steps}], Loss: {loss.item():.5f}')
 
-# Save the trained model
-torch.save(model, 'mnist_full_model.pth')
+# Saving model
+model_scripted = torch.jit.script(model) # Export to TorchScript
+model_scripted.save('mnist_full_model.pth') # Save

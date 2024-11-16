@@ -12,4 +12,6 @@ Download all of the requirements!
 
 python -m pip install -r requirements.txt
 
-for running the server: python server.py
+for running the server: python server.py 
+or if your version is messed up: py -"version" server.py 
+(replace "version" with 3.11)

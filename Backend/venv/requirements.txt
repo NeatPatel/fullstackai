@@ -2,3 +2,5 @@ flask
 torch
 torchvision
 pillow
+matplotlib
+flask_cors

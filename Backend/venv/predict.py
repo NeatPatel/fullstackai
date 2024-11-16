@@ -21,7 +21,7 @@ class NeuralNet(nn.Module):
         return out
 
 # Load the saved model
-model = torch.load('mnist_full_model.pth', map_location=device)
+model = torch.jit.load('mnist_full_model.pth')
 model.to(device)
 # Set model to evaluation mode
 model.eval()
