@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
 from PIL import Image
+import io, base64
 
 # Device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -35,7 +36,19 @@ def preprocess_image(image_path):
         transforms.ToTensor(),
         transforms.Normalize((0.5,), (0.5,))  # Normalize for MNIST
     ])
-    image = Image.open(image_path)
+
+    # Assuming base64_str is the string value without 'data:image/<imageTypeHere>;base64,'
+    #image = Image(io.BytesIO(base64.b64decode(image_path, "utf-8")))
+    # Strip the base64 prefix if it exists
+    if image_path.startswith("data:image"):
+        image_path = image_path.split(",", 1)[1]  # Remove "data:image/png;base64,"
+
+    # Decode the base64 string
+    image_data = base64.b64decode(image_path)
+
+    # Load the image
+    image = Image.open(io.BytesIO(image_data))
+
     image = transform(image)
     image = image.view(-1, 28*28)  # Flatten the image to match input size (784)
     return image.to(device)

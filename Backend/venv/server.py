@@ -10,6 +10,7 @@ import predict
 # current module (__name__) as argument.
 app = Flask(__name__)
 cors = CORS(app) # allow CORS for all domains on all routes.
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # Set max content limit at 16 MB
 
 # The route() function of the Flask class is a decorator, 
 # which tells the application which URL should call 
@@ -22,7 +23,6 @@ def hello_world():
 @app.route('/prediction', methods=["POST"])
 def prediction():
     if request.method == "POST":
-        #return predict.predict(request.)
         request_data = request.get_json()
         return jsonify(predict.predict(request_data['url']))
     
